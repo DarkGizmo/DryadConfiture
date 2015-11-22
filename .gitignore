@@ -1,0 +1,14 @@
+.DS_Store
+Library
+Temp
+*.csproj
+*.pidb
+*.unityproj
+*.sln
+*.userprefs
+/Extern/NameListApp/*.suo
+bin
+obj
+Raw Assets/*
+Build
+ui
