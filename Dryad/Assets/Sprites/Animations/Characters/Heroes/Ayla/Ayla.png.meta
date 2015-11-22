@@ -1,0 +1,1375 @@
+fileFormatVersion: 2
+guid: 0e37a42dfe6fa20498a5013edd06efaa
+timeCreated: 1435580502
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Ayla_0
+    21300002: Ayla_1
+    21300004: Ayla_2
+    21300006: Ayla_3
+    21300008: Ayla_4
+    21300010: Ayla_5
+    21300012: Ayla_CombatIdle01_1
+    21300014: Ayla_CombatIdle01_2
+    21300016: Ayla_CombatIdle01_3
+    21300018: Ayla_9
+    21300020: Ayla_10
+    21300022: Ayla_11
+    21300024: Ayla_12
+    21300026: Ayla_13
+    21300028: Ayla_14
+    21300030: Ayla_15
+    21300032: Ayla_16
+    21300034: Ayla_17
+    21300036: Ayla_18
+    21300038: Ayla_19
+    21300040: Ayla_20
+    21300042: Ayla_21
+    21300044: Ayla_22
+    21300046: Ayla_23
+    21300048: Ayla_24
+    21300050: Ayla_25
+    21300052: Ayla_26
+    21300054: Ayla_27
+    21300056: Ayla_28
+    21300058: Ayla_29
+    21300060: Ayla_30
+    21300062: Ayla_31
+    21300064: Ayla_32
+    21300066: Ayla_33
+    21300068: Ayla_34
+    21300070: Ayla_35
+    21300072: Ayla_36
+    21300074: Ayla_37
+    21300076: Ayla_38
+    21300078: Ayla_Idle01_1
+    21300080: Ayla_Idle01_2
+    21300082: Ayla_Idle01_3
+    21300084: Ayla_42
+    21300086: Ayla_43
+    21300088: Ayla_44
+    21300090: Ayla_45
+    21300092: Ayla_46
+    21300094: Ayla_47
+    21300096: Ayla_48
+    21300098: Ayla_49
+    21300100: Ayla_50
+    21300102: Ayla_51
+    21300104: Ayla_52
+    21300106: Ayla_53
+    21300108: Ayla_54
+    21300110: Ayla_55
+    21300112: Ayla_56
+    21300114: Ayla_57
+    21300116: Ayla_58
+    21300118: Ayla_59
+    21300120: Ayla_60
+    21300122: Ayla_61
+    21300124: Ayla_62
+    21300126: Ayla_63
+    21300128: Ayla_64
+    21300130: Ayla_65
+    21300132: Ayla_66
+    21300134: Ayla_67
+    21300136: Ayla_68
+    21300138: Ayla_69
+    21300140: Ayla_70
+    21300142: Ayla_71
+    21300144: Ayla_72
+    21300146: Ayla_73
+    21300148: Ayla_74
+    21300150: Ayla_75
+    21300152: Ayla_76
+    21300154: Ayla_77
+    21300156: Ayla_78
+    21300158: Ayla_79
+    21300160: Ayla_80
+    21300162: Ayla_81
+    21300164: Ayla_82
+    21300166: Ayla_83
+    21300168: Ayla_84
+    21300170: Ayla_85
+    21300172: Ayla_86
+    21300174: Ayla_87
+    21300176: Ayla_88
+    21300178: Ayla_89
+    21300180: Ayla_90
+    21300182: Ayla_91
+    21300184: Ayla_92
+    21300186: Ayla_93
+    21300188: Ayla_94
+    21300190: Ayla_95
+    21300192: Ayla_96
+    21300194: Ayla_97
+    21300196: Ayla_98
+    21300198: Ayla_99
+    21300200: Ayla_100
+    21300202: Ayla_101
+    21300204: Ayla_102
+    21300206: Ayla_103
+    21300208: Ayla_104
+    21300210: Ayla_105
+    21300212: Ayla_106
+    21300214: Ayla_107
+    21300216: Ayla_108
+    21300218: Ayla_109
+    21300220: Ayla_110
+    21300222: Ayla_111
+    21300224: Ayla_112
+    21300226: Ayla_113
+    21300228: Ayla_114
+    21300230: Ayla_Incapacitated
+    21300232: Ayla_116
+    21300234: Ayla_117
+    21300236: Ayla_118
+    21300238: Ayla_119
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: 0
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Ayla_0
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 607
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_1
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 607
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_2
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 607
+        width: 58
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_3
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 607
+        width: 20
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_4
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 607
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_5
+      rect:
+        serializedVersion: 2
+        x: 171
+        y: 607
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_CombatIdle01_1
+      rect:
+        serializedVersion: 2
+        x: 221
+        y: 609
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_CombatIdle01_2
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 609
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_CombatIdle01_3
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 609
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_9
+      rect:
+        serializedVersion: 2
+        x: 300
+        y: 609
+        width: 22
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_10
+      rect:
+        serializedVersion: 2
+        x: 325
+        y: 609
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_11
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 609
+        width: 26
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_12
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 564
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_13
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 564
+        width: 20
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_14
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 564
+        width: 75
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_15
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 564
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_16
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 566
+        width: 51
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_17
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 566
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_18
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 524
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_19
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 524
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_20
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 524
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_21
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 524
+        width: 79
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_22
+      rect:
+        serializedVersion: 2
+        x: 172
+        y: 524
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_23
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 525
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_24
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 525
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_25
+      rect:
+        serializedVersion: 2
+        x: 272
+        y: 525
+        width: 48
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_26
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 525
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_27
+      rect:
+        serializedVersion: 2
+        x: 347
+        y: 525
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_28
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 486
+        width: 48
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_29
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 486
+        width: 20
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_30
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 486
+        width: 81
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_31
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 485
+        width: 25
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_32
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 485
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_33
+      rect:
+        serializedVersion: 2
+        x: 285
+        y: 485
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_34
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 452
+        width: 94
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_35
+      rect:
+        serializedVersion: 2
+        x: 226
+        y: 441
+        width: 65
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_36
+      rect:
+        serializedVersion: 2
+        x: 291
+        y: 441
+        width: 24
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_37
+      rect:
+        serializedVersion: 2
+        x: 322
+        y: 440
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_38
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 440
+        width: 27
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_Idle01_1
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 406
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_Idle01_2
+      rect:
+        serializedVersion: 2
+        x: 22
+        y: 406
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_Idle01_3
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 406
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_42
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 406
+        width: 59
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_43
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 406
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_44
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 406
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_45
+      rect:
+        serializedVersion: 2
+        x: 166
+        y: 406
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_46
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 402
+        width: 124
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_47
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 402
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_48
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 352
+        width: 31
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_49
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 357
+        width: 28
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_50
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 357
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_51
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 357
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_52
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 357
+        width: 20
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_53
+      rect:
+        serializedVersion: 2
+        x: 125
+        y: 357
+        width: 59
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_54
+      rect:
+        serializedVersion: 2
+        x: 214
+        y: 360
+        width: 27
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_55
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 360
+        width: 83
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_56
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 360
+        width: 51
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_57
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 314
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_58
+      rect:
+        serializedVersion: 2
+        x: 28
+        y: 316
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_59
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 314
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_60
+      rect:
+        serializedVersion: 2
+        x: 69
+        y: 316
+        width: 39
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_61
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 316
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_62
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 316
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_63
+      rect:
+        serializedVersion: 2
+        x: 151
+        y: 316
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_64
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 312
+        width: 25
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_65
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 318
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_66
+      rect:
+        serializedVersion: 2
+        x: 273
+        y: 319
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_67
+      rect:
+        serializedVersion: 2
+        x: 306
+        y: 312
+        width: 23
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_68
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 312
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_69
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 312
+        width: 19
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_70
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 274
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_71
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 274
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_72
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 274
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_73
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 274
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_74
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 274
+        width: 40
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_75
+      rect:
+        serializedVersion: 2
+        x: 218
+        y: 276
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_76
+      rect:
+        serializedVersion: 2
+        x: 239
+        y: 278
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_77
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 276
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_78
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 276
+        width: 19
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_79
+      rect:
+        serializedVersion: 2
+        x: 315
+        y: 276
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_80
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 276
+        width: 23
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_81
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 233
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_82
+      rect:
+        serializedVersion: 2
+        x: 114
+        y: 233
+        width: 46
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_83
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 234
+        width: 20
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_84
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 235
+        width: 19
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_85
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 236
+        width: 35
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_86
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 161
+        width: 22
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_87
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 161
+        width: 56
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_88
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 185
+        width: 19
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_89
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 185
+        width: 51
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_90
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 185
+        width: 44
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_91
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 185
+        width: 23
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_92
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 122
+        width: 136
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_93
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 122
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_94
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 144
+        width: 26
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_95
+      rect:
+        serializedVersion: 2
+        x: 236
+        y: 144
+        width: 20
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_96
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 144
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_97
+      rect:
+        serializedVersion: 2
+        x: 286
+        y: 144
+        width: 20
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_98
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 144
+        width: 27
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_99
+      rect:
+        serializedVersion: 2
+        x: 334
+        y: 144
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_100
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 79
+        width: 55
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_101
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 79
+        width: 79
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_102
+      rect:
+        serializedVersion: 2
+        x: 167
+        y: 79
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_103
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 102
+        width: 45
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_104
+      rect:
+        serializedVersion: 2
+        x: 253
+        y: 102
+        width: 47
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_105
+      rect:
+        serializedVersion: 2
+        x: 301
+        y: 102
+        width: 26
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_106
+      rect:
+        serializedVersion: 2
+        x: 327
+        y: 102
+        width: 24
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_107
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 39
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_108
+      rect:
+        serializedVersion: 2
+        x: 212
+        y: 66
+        width: 74
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_109
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 46
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_110
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 38
+        width: 20
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_111
+      rect:
+        serializedVersion: 2
+        x: 216
+        y: 38
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_112
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 38
+        width: 20
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_113
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 38
+        width: 20
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_114
+      rect:
+        serializedVersion: 2
+        x: 281
+        y: 37
+        width: 53
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_Incapacitated
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 37
+        width: 34
+        height: 19
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_116
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 0
+        width: 28
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_117
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 27
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_118
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ayla_119
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 361
+        width: 103
+        height: 38
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
