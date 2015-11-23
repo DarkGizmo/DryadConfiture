@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour {
     public string btnAnchor = "Fire2";
     public float flapIntensity = 5.0f;
     public bool stateFree = true;
-    public float maxHorizVelocity = 30.0f;
+    public float maxHorizVelocity = 12.0f;
     private bool isAnchored = false;
 
     // Use this for initialization
