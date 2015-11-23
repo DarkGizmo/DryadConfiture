@@ -78,4 +78,14 @@ public class Terrain2DRealtimeDeformer : MonoBehaviour
     {
         Dig, Raise
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, 1.0f);
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(transform.position, 0.5f);
+    }
 }

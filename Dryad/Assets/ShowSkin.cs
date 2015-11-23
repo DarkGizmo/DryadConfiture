@@ -9,7 +9,6 @@ public class ShowSkin : MonoBehaviour {
 	public float elemWidth = 100, elemHeight = 30;
 	public Texture2D testIcon;
 	bool testBool;
-	int selection;
 	void OnGUI () {
 		// Assign this skin to the GUI. If it is null, the GUI will use the builtin skin
 		GUI.skin = skin;

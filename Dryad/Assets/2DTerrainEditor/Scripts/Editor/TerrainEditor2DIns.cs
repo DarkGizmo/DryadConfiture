@@ -46,11 +46,11 @@ public class TerrainEditor2DIns: Editor
     private bool _playMode;
     private bool _startEdit;
     private bool _digMode;
-    private bool _brushSizeMode;
+    //private bool _brushSizeMode;
     private bool _brushLockMode;
     private Vector2 _brushHandleLockPos;
 
-    private bool _hotkeyEnteredInEditMode;
+    //private bool _hotkeyEnteredInEditMode;
     private Vector2 _mousePos;
     private Vector2 _handleLocalPos;
 
