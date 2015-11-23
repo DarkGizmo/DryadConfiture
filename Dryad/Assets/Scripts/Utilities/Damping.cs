@@ -21,6 +21,20 @@ public class DampingUtility
         return (((current * factor) + (desired * dt)) / (factor + dt));
     }
 
+    public static Vector3 Damp(Vector3 current, Vector3 desired, float factor, float dt)
+    {
+        if (dt == 0.0f)
+        {
+            return current;
+        }
+        else if (factor == 0.0f)
+        {
+            return desired;
+        }
+
+        return (((current * factor) + (desired * dt)) / (factor + dt));
+    }
+
     public static float SinSmooth(float current)
     {
         return (Mathf.Sin((current * Mathf.PI) - (Mathf.PI * 0.5f)) + 1.0f) * 0.5f;

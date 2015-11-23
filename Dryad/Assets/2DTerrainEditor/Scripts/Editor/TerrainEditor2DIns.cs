@@ -375,6 +375,7 @@ public class TerrainEditor2DIns: Editor
             _myTerrainEditor2D.Width = EditorGUILayout.IntField("Width", _myTerrainEditor2D.Width);
             _myTerrainEditor2D.Height = EditorGUILayout.IntField("Height", _myTerrainEditor2D.Height);
             _myTerrainEditor2D.Resolution = EditorGUILayout.IntField("Resolution", _myTerrainEditor2D.Resolution);
+            _myTerrainEditor2D.RemoveDampingFactor = EditorGUILayout.FloatField("RemoveDampingFactor", _myTerrainEditor2D.RemoveDampingFactor);
 
             if (_myTerrainEditor2D.Resolution > 8)
                 EditorGUILayout.HelpBox("Resolution is responsible for the number of polygons. High resolution value may affect performance.", MessageType.Warning);

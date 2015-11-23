@@ -26,6 +26,10 @@ public class TerrainEditor2D : MonoBehaviour
     /// 2D terrain segments per unit
     /// </summary>
     public int Resolution = 1;
+    /// <summary>
+    /// Speed at which terrain visually deformns
+    /// </summary>
+    public float RemoveDampingFactor = 0.1f;
     #endregion
 
     #region 2D Terrain settings values
@@ -149,8 +153,11 @@ public class TerrainEditor2D : MonoBehaviour
 
     public GameObject CapObj;
     public GameObject Collider3DObj;
-    public List<SmartCapArea> SmartCapAreas; 
+    public List<SmartCapArea> SmartCapAreas;
     #endregion
+
+    public List<Vector3> DesiredVertices;
+
 
     // --- public methods
 
@@ -395,7 +402,7 @@ public class TerrainEditor2D : MonoBehaviour
     /// Changes terrain geometry in realtime based on new path. Path can be obtained from <see cref="GetPath()"/> method
     /// </summary>
     /// <param name="newPath">Array of new terrain path points</param>
-    public void ApplyDeform(Vector3[] newPath)
+    public void ApplyDeform(Vector3[] newPath, bool applySmoothly = false)
     {
         if (!RealtimeDeformEnabled)
             return;
@@ -410,23 +417,32 @@ public class TerrainEditor2D : MonoBehaviour
 
         #region Generate vertices
         Vector3[] vertices = GetVertsPos();
-        int pathIndex = 0;
-        for (int i = 0; i < vertices.Length; i += 2)
+        Vector3[] backupVertices = null;
+        if (applySmoothly)
         {
-            if (newPath[pathIndex].y < 0)
-                newPath[pathIndex].y = 0;
-
-            if (newPath[pathIndex].y > Height)
-                newPath[pathIndex].y = Height;
-
-            vertices[i] = newPath[pathIndex];
-            pathIndex++;
+            DesiredVertices = newPath.ToList<Vector3>();
+            backupVertices = vertices;
         }
-        
-        pathMesh.vertices = vertices;
+        else
+        {
+            int pathIndex = 0;
+            for (int i = 0; i < vertices.Length; i += 2)
+            {
+                if (newPath[pathIndex].y < 0)
+                    newPath[pathIndex].y = 0;
+
+                if (newPath[pathIndex].y > Height)
+                    newPath[pathIndex].y = Height;
+
+                vertices[i] = newPath[pathIndex];
+                pathIndex++;
+            }
+
+            pathMesh.vertices = vertices;
+        }
         #endregion 
 
-        if (RealtimeDeformUpdateUv)
+        if (!applySmoothly && RealtimeDeformUpdateUv)
         {
             #region Generate UV
             Vector2[] uv = new Vector2[vertices.Length];
@@ -448,6 +464,15 @@ public class TerrainEditor2D : MonoBehaviour
         {
             UpdateCollider2D();
             UpdateCollider3D(false);
+        }
+
+        if (applySmoothly && backupVertices != null)
+        {
+            pathMesh.vertices = vertices;
+
+            pathMesh.RecalculateBounds();
+
+            UpdateCap(false);
         }
     }
 
@@ -692,6 +717,57 @@ public class TerrainEditor2D : MonoBehaviour
         
         UpdateCap(updateShared);
         UpdateCollider3D(updateShared);
+    }
+
+    public void Update()
+    {
+        if (DesiredVertices.Count > 0)
+        {
+            bool allAtDesired = true;
+
+            Vector3[] vertices = GetVertsPos();
+            int pathIndex = 0;
+            for (int i = 0; i < vertices.Length; i += 2)
+            {
+                if (DesiredVertices[pathIndex].y < 0)
+                    DesiredVertices[pathIndex].Set(DesiredVertices[pathIndex].x, 0, DesiredVertices[pathIndex].z);
+
+                if (DesiredVertices[pathIndex].y > Height)
+                    DesiredVertices[pathIndex].Set(DesiredVertices[pathIndex].x, Height, DesiredVertices[pathIndex].z);
+
+                vertices[i] = DampingUtility.Damp(vertices[i], DesiredVertices[pathIndex], RemoveDampingFactor, TimeHelper.GameTime);
+
+                bool atDesired = Mathf.Approximately(vertices[i].y, DesiredVertices[pathIndex].y);
+                allAtDesired = allAtDesired && atDesired;
+
+                pathIndex++;
+            }
+
+            Mesh pathMesh = gameObject.GetComponent<MeshFilter>().mesh;
+            pathMesh.vertices = vertices;
+
+            if (RealtimeDeformUpdateUv)
+            {
+                #region Generate UV
+                Vector2[] uv = new Vector2[vertices.Length];
+
+                for (int i = 0; i < uv.Length; i += 2)
+                {
+                    uv[i] = new Vector2((float)i / (uv.Length - 2) * MainTextureSize, (vertices[i].y / Height) * ((float)Height / Width) * MainTextureSize);
+                    uv[i + 1] = new Vector2((float)i / (uv.Length - 2) * MainTextureSize, (vertices[i + 1].y / Height) * ((float)Height / Width) * MainTextureSize);
+                }
+
+                pathMesh.uv = uv;
+                #endregion
+            }
+
+            UpdateCap(false);
+
+            if (allAtDesired)
+            {
+                DesiredVertices.Clear();
+            }
+        }
     }
 
     
