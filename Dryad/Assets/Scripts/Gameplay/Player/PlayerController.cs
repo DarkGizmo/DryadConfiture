@@ -20,11 +20,20 @@ public class PlayerController
     private bool isAiming;
     private Vector3 originalAimingPosition;
     private Vector3 currentAimingPosition;
-
+    // Hydrometer
+    public float maxHydro = 30.0f;
+    public float curHydro;
+    private float hBarLength;
+    public float hAdjFree = -0.01f;
+    public float hAdjMove = -0.1f;
+    public float hAdjFlap = -3.0f;
+    public float hAdjRefill = 0.3f;
     // Use this for initialization
     void Start ()
     {
         Camera.main.GetComponent<PostRendererEmitter>().RegisterPostRendererListener(this);
+        hBarLength = Screen.width / 2;
+        curHydro = maxHydro;
 	}
 
     // Update is called once per frame
@@ -42,21 +51,31 @@ public class PlayerController
         {
             if (Input.GetButtonDown("Jump"))
             {
-                myVelocity.y+=flapIntensity;
+                if (curHydro >= Mathf.Abs(hAdjFlap))
+                {
+                    myVelocity.y += flapIntensity;
+                    adjHydro(hAdjFlap);
+                }
             }
-            myVelocity.x= Mathf.Clamp(myVelocity.x+force * TimeHelper.GameTime * Input.GetAxis("Horizontal"),-maxHorizVelocity,maxHorizVelocity);
+            if (curHydro >= Mathf.Abs(hAdjFree))
+            {
+                adjHydro(Mathf.Abs(Input.GetAxis("Horizontal")) * hAdjMove + hAdjFree);
+                myVelocity.x = Mathf.Clamp(myVelocity.x + force * TimeHelper.GameTime * Input.GetAxis("Horizontal"), -maxHorizVelocity, maxHorizVelocity);
+            }
         } else
         {
             if (!isAnchored && myVelocity == Vector2.zero)
             {
                 isAnchored = true;
                 this.GetComponent<SpriteRenderer>().color = Color.red;
+                stateFree = false;
             }
         }
         GetComponent<Rigidbody2D>().velocity = myVelocity;
 
         if (isAnchored)
         {
+            adjHydro(hAdjRefill);
             if (!isAiming && Input.GetButtonDown("Fire"))
             {
                 originalAimingPosition = GetMouseScreenPosition();
@@ -153,8 +172,14 @@ public class PlayerController
             Gizmos.DrawWireCube(ScreenToWorldPoint(GetMouseScreenPosition()) + Vector3.up * cubeSize.y * 0.5f, cubeSize);
             Vector3 fillSize = cubeSize - Vector3.up * cubeSize.y * (1.0f - GetShootingRatio());
             Gizmos.DrawCube(ScreenToWorldPoint(GetMouseScreenPosition()) + Vector3.up * fillSize.y * 0.5f, fillSize);
-        }
-
-        
+        }        
+    }
+    public void adjHydro (float adj)
+    {
+        curHydro = Mathf.Clamp(curHydro+=adj*(TimeHelper.GameTime*30), 0.0f,maxHydro);
+    }
+    public void OnGUI()
+    {
+        GUI.HorizontalSlider(new Rect(new Vector2(hBarLength/2, 1.0f), new Vector2 (hBarLength,1.0f)),curHydro,0.0f,maxHydro);
     }
 }
