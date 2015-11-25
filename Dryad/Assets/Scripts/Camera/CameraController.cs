@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CameraController : MonoBehaviour
-{
+public class CameraController : MonoBehaviour {
     public GameObject referenceTracker;
-    public float cameraXDamping = 1.0f;
-  
-	
-	// Update is called once per frame
-	void Update ()
+    public float damping = 1.0f;
+    void FixedUpdate ()
     {
-        Vector3 camPosition = this.transform.position;
-        camPosition.x = DampingUtility.Damp(camPosition.x, referenceTracker.transform.position.x, cameraXDamping, TimeHelper.GameTime);
-        this.transform.position = camPosition;
-	}
+        if (referenceTracker != null)
+        {
+            Vector3 tgtTransform = transform.position;
+            tgtTransform.x = DampingUtility.Damp(tgtTransform.x, referenceTracker.transform.position.x, damping, TimeHelper.GameTime);
+            transform.position = tgtTransform;
+        }
+    }
 }
