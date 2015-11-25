@@ -3,19 +3,14 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
     public GameObject referenceTracker;
-    public float cameraXDamping = 1.0f;
-    private Vector3 myTransform;
-
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update ()
+    public float damping = 1.0f;
+    void FixedUpdate ()
     {
-        myTransform = this.transform.position;
-        myTransform.x = DampingUtility.Damp(myTransform.x, referenceTracker.transform.position.x, cameraXDamping, TimeHelper.GameTime);
-        this.transform.position = myTransform;
-	}
+        if (referenceTracker != null)
+        {
+            Vector3 tgtTransform = transform.position;
+            tgtTransform.x = DampingUtility.Damp(tgtTransform.x, referenceTracker.transform.position.x, damping, TimeHelper.GameTime);
+            transform.position = tgtTransform;
+        }
+    }
 }
