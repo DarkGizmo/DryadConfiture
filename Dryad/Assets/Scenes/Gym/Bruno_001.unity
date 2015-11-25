@@ -132,6 +132,10 @@ Prefab:
       propertyPath: m_Name
       value: Avatar
       objectReference: {fileID: 0}
+    - target: {fileID: 5028998, guid: 58660b83b045046438ba25bd6abd647c, type: 2}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58660b83b045046438ba25bd6abd647c, type: 2}
   m_IsPrefabParent: 0
@@ -451,7 +455,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   referenceTracker: {fileID: 753227931}
-  cameraXDamping: .300000012
+  damping: 1
 --- !u!114 &2116523224
 MonoBehaviour:
   m_ObjectHideFlags: 0
