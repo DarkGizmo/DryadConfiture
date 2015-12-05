@@ -180,6 +180,6 @@ public class PlayerController
     }
     public void OnGUI()
     {
-        GUI.HorizontalSlider(new Rect(new Vector2(hBarLength/2, 1.0f), new Vector2 (hBarLength,1.0f)),curHydro,0.0f,maxHydro);
+        GUI.HorizontalSlider(new Rect(new Vector2(hBarLength/2, Screen.height-20.0f), new Vector2 (hBarLength,1.0f)),curHydro,0.0f,maxHydro);
     }
 }

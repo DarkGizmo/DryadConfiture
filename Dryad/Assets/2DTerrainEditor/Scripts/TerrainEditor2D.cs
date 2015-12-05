@@ -746,6 +746,8 @@ public class TerrainEditor2D : MonoBehaviour
             Mesh pathMesh = gameObject.GetComponent<MeshFilter>().mesh;
             pathMesh.vertices = vertices;
 
+            UpdateCap(false);
+
             if (RealtimeDeformUpdateUv)
             {
                 #region Generate UV
@@ -760,8 +762,6 @@ public class TerrainEditor2D : MonoBehaviour
                 pathMesh.uv = uv;
                 #endregion
             }
-
-            UpdateCap(false);
 
             if (allAtDesired)
             {
