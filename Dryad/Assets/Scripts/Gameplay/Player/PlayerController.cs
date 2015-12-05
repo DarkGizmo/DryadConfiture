@@ -100,6 +100,7 @@ public class PlayerController
                 {
                     isAiming = false;
 
+                    ballistic.GetComponent<BallisticAmmo>().Initialize(gameObject);
                     float launchForce = GetLaunchForce();
                     if (launchForce > 0.0f)
                     {
