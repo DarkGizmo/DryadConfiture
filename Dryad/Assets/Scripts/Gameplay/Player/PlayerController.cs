@@ -89,7 +89,7 @@ public class PlayerController
                     isAiming = false;
 
                     GameObject ballistic = (GameObject)GameObject.Instantiate(BallisticAmmo, transform.position, Quaternion.identity);
-
+                    ballistic.GetComponent<BallisticAmmo>().Initialize(gameObject);
                     Vector3 rangeVector = ScreenToWorldPoint(originalAimingPosition) - ScreenToWorldPoint(currentAimingPosition);
 
                     ballistic.GetComponent<Rigidbody2D>().AddForce(GetShootingRatio() * BallisticLaunchForce  * rangeVector.normalized);

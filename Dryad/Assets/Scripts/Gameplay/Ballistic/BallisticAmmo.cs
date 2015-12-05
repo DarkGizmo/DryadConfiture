@@ -6,7 +6,7 @@ using System.Collections;
 public class BallisticAmmo : MonoBehaviour {
 
     private GameObject mOwner;
-
+    public GameObject Explosion;
     public float ExplosionRadius = 4.0f;
 
     public void Initialize(GameObject owner)
@@ -71,5 +71,7 @@ public class BallisticAmmo : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         OnImpact();
+        GameObject go = (GameObject)Instantiate(Explosion, transform.position, Quaternion.LookRotation(new Vector2(collision.contacts[0].normal.x, collision.contacts[0].normal.y), Vector2.up));
+        Destroy(go, 1.0f);
     }
 }
