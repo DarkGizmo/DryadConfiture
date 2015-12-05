@@ -26,6 +26,8 @@ public class BallisticAmmo : MonoBehaviour {
 
     virtual public void OnImpact()
     {
+        DestroyObject(gameObject);
+
         GameObject[] allTerrains = GameObject.FindGameObjectsWithTag("Terrain");
 
         foreach (var terrainEditor2DObject in allTerrains)
@@ -64,8 +66,6 @@ public class BallisticAmmo : MonoBehaviour {
             //Apply deformation
             terrainEditor2D.ApplyDeform(path, true);
         }
-
-        DestroyObject(gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

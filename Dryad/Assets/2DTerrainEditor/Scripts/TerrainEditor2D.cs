@@ -254,7 +254,7 @@ public class TerrainEditor2D : MonoBehaviour
         #region Update Edge Collider 2D
         if (GetComponent<EdgeCollider2D>() != null)
         {
-            Vector3[] path = GetPath(Space.Self);
+            Vector3[] path = GetPath(Space.Self, true);
             Vector2[] colliderPath = new Vector2[path.Length];
 
             for (int i = 0; i < path.Length; i++)
@@ -266,35 +266,6 @@ public class TerrainEditor2D : MonoBehaviour
             GetComponent<EdgeCollider2D>().points = colliderPath;
         }
         #endregion
-
-        #region Update Polygon Collider 2D
-        /*
-        Vector3[] vertices = GetVertsPos();
-        Vector2[] points = new Vector2[vertices.Length];
-
-        int point = 0;
-        for (int i = 0; i < vertices.Length; i += 2)
-        {
-            if (i >= vertices.Length - 1)
-                break;
-
-            points[point] = new Vector2(vertices[i].x, vertices[i].y);
-            point++;
-        }
-
-        for (int i = vertices.Length - 1; i > 1; i -= 2)
-        {
-            if (i <= 0)
-                break;
-
-            points[point] = new Vector2(vertices[i].x, vertices[i].y);
-            point++;
-        }
-
-        gameObject.GetComponent<PolygonCollider2D>().SetPath(0, points);
-        */
-        #endregion
-
     }
 
     /// <summary>
@@ -620,29 +591,64 @@ public class TerrainEditor2D : MonoBehaviour
     /// </summary>
     /// <param name="relativeSpace">Relative to local or world space</param>
     /// <returns>Array of path points</returns>
+
     public Vector3[] GetPath(Space relativeSpace)
+    {
+        return GetPath(relativeSpace, false);
+    }
+
+    public Vector3[] GetPath(Space relativeSpace, bool useDesired)
     {
         Mesh terrainMesh = gameObject.GetComponent<MeshFilter>().sharedMesh;
 
         if (terrainMesh == null)
             return null;
 
+        if(useDesired && DesiredVertices.Count == 0)
+        {
+            Vector3[] meshPath = GetPath(Space.Self);
+            for (int i = 0; i < meshPath.Length; ++i)
+            {
+                DesiredVertices.Add(meshPath[i]);
+            }
+        }
+
         Vector3[] path = new Vector3[terrainMesh.vertexCount / 2];
         int vertIndex = 0;
         if (relativeSpace == Space.Self)
         {
-            for (int i = 0; i < terrainMesh.vertexCount; i += 2)
+            if (!useDesired)
             {
-                path[vertIndex] = terrainMesh.vertices[i];
-                vertIndex++;
+                for (int i = 0; i < terrainMesh.vertexCount; i += 2)
+                {
+                    path[vertIndex] = terrainMesh.vertices[i];
+                    vertIndex++;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < DesiredVertices.Count; ++i)
+                {
+                    path[i] = DesiredVertices[i];
+                }
             }
         }
         else
         {
-            for (int i = 0; i < terrainMesh.vertexCount; i += 2)
+            if (!useDesired)
             {
-                path[vertIndex] = terrainMesh.vertices[i] + transform.position;
-                vertIndex++;
+                for (int i = 0; i < terrainMesh.vertexCount; i += 2)
+                {
+                    path[vertIndex] = terrainMesh.vertices[i] + transform.position;
+                    vertIndex++;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < DesiredVertices.Count; ++i)
+                {
+                    path[i] = DesiredVertices[i] + transform.position;
+                }
             }
         }
 
