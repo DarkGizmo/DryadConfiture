@@ -5,6 +5,13 @@ public class PlayerController
     : MonoBehaviour
     , PostRendererListenerInterface
 {
+    public enum EAimingSmoothType
+    {
+        Linear,
+        ECurve,
+        SCurve,
+    }
+
     public float force = 30.0f;
     public float flapIntensity = 5.0f;
     public bool stateFree = true;
@@ -14,6 +21,11 @@ public class PlayerController
     public GameObject BallisticAmmo;
     public float BallisticLaunchForce = 1.0f;
     public float BallisticFactor = 0.3f;
+    public EAimingSmoothType AimingSmoothType;
+
+    public float MaximumLaunchLength = 10.0f;
+    public float MinimumLaunchLength = 1.0f;
+    public float MinimumLaunchForce = 1.0f;// still used?
 
     public Material ArrowMaterial;
 
@@ -88,11 +100,13 @@ public class PlayerController
                 {
                     isAiming = false;
 
-                    GameObject ballistic = (GameObject)GameObject.Instantiate(BallisticAmmo, transform.position, Quaternion.identity);
-
-                    Vector3 rangeVector = ScreenToWorldPoint(originalAimingPosition) - ScreenToWorldPoint(currentAimingPosition);
-
-                    ballistic.GetComponent<Rigidbody2D>().AddForce(GetShootingRatio() * BallisticLaunchForce  * rangeVector.normalized);
+                    float launchForce = GetLaunchForce();
+                    if (launchForce > 0.0f)
+                    {
+                        GameObject ballistic = (GameObject)GameObject.Instantiate(BallisticAmmo, transform.position, Quaternion.identity);
+                        Vector3 launchVelocity = GetLaunchVector().normalized * GetShootingRatio() * BallisticLaunchForce;
+                        ballistic.GetComponent<Rigidbody2D>().AddForce(launchVelocity);
+                    }
                 }
                 else
                 {
@@ -102,14 +116,49 @@ public class PlayerController
         }
     }
 
+    private Vector3 GetLaunchVector()
+    {
+        Vector3 rangeVector = ScreenToWorldPoint(originalAimingPosition) - ScreenToWorldPoint(currentAimingPosition);
+        return rangeVector;
+    }
+
+    private float GetLaunchForce()
+    {
+        float launchForce = GetLaunchVector().magnitude;
+        if (launchForce > MinimumLaunchLength)
+        {
+            return Mathf.Min(launchForce, MaximumLaunchLength);
+        }
+
+        return 0.0f;
+    }
+
+    private float GetShootingValue(float shootingMagnitude)
+    {
+        float factor = 0.0f;
+
+        switch(AimingSmoothType)
+        {
+            case EAimingSmoothType.Linear:
+                factor = shootingMagnitude / MaximumLaunchLength;
+                break;
+            case EAimingSmoothType.ECurve:
+                factor = 1.0f - Mathf.Exp(-(shootingMagnitude) / BallisticFactor);
+                break;
+            case EAimingSmoothType.SCurve:
+                {
+                    float x = shootingMagnitude / MaximumLaunchLength * 0.5f + 0.5f;
+                    factor = x * x * x * (x * (x * 6.0f - 15.0f) + 10.0f);
+                }
+                break;
+        }
+
+        return Mathf.Clamp01(factor);
+    }
+
     private float GetShootingRatio()
     {
-        //1 - e ^ (-x / .3)
-        Vector3 rangeVector = ScreenToWorldPoint(originalAimingPosition) - ScreenToWorldPoint(currentAimingPosition);
-
-        float factor = 1.0f - Mathf.Exp(-rangeVector.magnitude / BallisticFactor);
-
-        return factor;
+        return GetShootingValue(GetLaunchVector().magnitude);
     }
 
     private Vector3 GetMouseWorldPosition()
@@ -155,7 +204,15 @@ public class PlayerController
 
         if (isAiming)
         {
-            LineUtility.DrawLine(originalAimingPosition, originalAimingPosition + originalAimingPosition - currentAimingPosition, ArrowMaterial);
+            float launchForce = GetLaunchForce();
+            if (launchForce > 0.0f)
+            {
+                Vector3 originalWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
+                Vector3 currentWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
+                Vector3 aimingWorldPosition = originalWorldAimingPosition + GetLaunchVector().normalized * GetShootingRatio() * MaximumLaunchLength;
+
+                LineUtility.DrawLine(originalAimingPosition, WorldToScreenPoint(aimingWorldPosition), ArrowMaterial);
+            }
         }
 
         GL.PopMatrix();
@@ -165,13 +222,14 @@ public class PlayerController
     {
         if (isAiming)
         {
-            Gizmos.DrawWireSphere(ScreenToWorldPoint(originalAimingPosition), 0.5f);
-            Gizmos.DrawWireSphere(ScreenToWorldPoint(currentAimingPosition), 0.5f);
+            Vector3 originalWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
+            Vector3 aimingWorldPosition = originalWorldAimingPosition + GetLaunchVector();
 
-            Vector3 cubeSize = new Vector3(0.5f, 5.0f, 1.0f);
-            Gizmos.DrawWireCube(ScreenToWorldPoint(GetMouseScreenPosition()) + Vector3.up * cubeSize.y * 0.5f, cubeSize);
-            Vector3 fillSize = cubeSize - Vector3.up * cubeSize.y * (1.0f - GetShootingRatio());
-            Gizmos.DrawCube(ScreenToWorldPoint(GetMouseScreenPosition()) + Vector3.up * fillSize.y * 0.5f, fillSize);
+            float dist = GetLaunchForce();
+
+            DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, Mathf.Min(GetLaunchForce(), MaximumLaunchLength));
+            DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, MinimumLaunchLength);
+            DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, MaximumLaunchLength);
         }        
     }
     public void adjHydro (float adj)

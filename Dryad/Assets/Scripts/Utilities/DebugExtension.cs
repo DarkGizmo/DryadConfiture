@@ -1121,7 +1121,7 @@ public static class DebugExtension
 	/// </param>
 	public static void DrawCircle(Vector3 position, Vector3 up, float radius)
 	{
-		DrawCircle(position, position, Color.white, radius);
+		DrawCircle(position, up, Color.white, radius);
 	}
 	
 	/// <summary>
