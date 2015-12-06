@@ -9,6 +9,9 @@ public class BallisticAmmo : MonoBehaviour {
     public GameObject Explosion;
     public float ExplosionRadius = 4.0f;
 
+    public int NumberOfHitBeforeExplosion = 1;
+    public float BounceForce = 200.0f;
+
     public void Initialize(GameObject owner)
     {
         mOwner = owner;
@@ -26,7 +29,18 @@ public class BallisticAmmo : MonoBehaviour {
 
     virtual public void OnImpact()
     {
-        DestroyObject(gameObject);
+        float explosionRadius = ExplosionRadius;
+
+        --NumberOfHitBeforeExplosion;
+        if (NumberOfHitBeforeExplosion == 0)
+        {
+            DestroyObject(gameObject);
+        }
+        else
+        {
+            explosionRadius *= 0.5f;
+        }
+
 
         GameObject[] allTerrains = GameObject.FindGameObjectsWithTag("Terrain");
 
@@ -44,22 +58,29 @@ public class BallisticAmmo : MonoBehaviour {
             //Get array of points of terrain path in local space
             Vector3[] path = terrainEditor2D.GetPath(Space.Self);
 
-            float minX = hitLocation.x - ExplosionRadius;
-            float maxX = hitLocation.x + ExplosionRadius;
+            float minX = hitLocation.x - explosionRadius;
+            float maxX = hitLocation.x + explosionRadius;
 
             for (int i = 0; i < path.Length; i++)
             {
                 if (path[i].x >= minX && path[i].x <= maxX)
                 {
                     float distX = Mathf.Abs(hitLocation.x - path[i].x);
-                    float ratioX = distX / ExplosionRadius;
+                    float ratioX = distX / explosionRadius;
 
-                    float height = Mathf.Sin((ratioX * 0.5f + 0.5f) * Mathf.PI) * ExplosionRadius;
+                    float height = Mathf.Sin((ratioX * 0.5f + 0.5f) * Mathf.PI) * explosionRadius;
 
                     float deltaDig = Mathf.Max((hitLocation.y + height) - path[i].y, 0.0f);
                     float deltaRemove = height * 2.0f - deltaDig;
 
-                    path[i].y -= Mathf.Max(deltaRemove, 0.0f);
+                    if(NumberOfHitBeforeExplosion == 0)
+                    {
+                        path[i].y += Mathf.Max(deltaRemove, 0.0f);
+                    }
+                    else
+                    {
+                        path[i].y -= Mathf.Max(deltaRemove, 0.0f);
+                    }
                 }
             }
 
@@ -71,7 +92,22 @@ public class BallisticAmmo : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision)
     {
         OnImpact();
-        GameObject go = (GameObject)Instantiate(Explosion, transform.position, Quaternion.LookRotation(new Vector2(collision.contacts[0].normal.x, collision.contacts[0].normal.y), Vector2.up));
+
+        Vector2 impactNormal = Vector2.zero;
+        for (int i = 0; i < collision.contacts.Length; ++i)
+        {
+            impactNormal += collision.contacts[i].normal;
+        }
+
+        impactNormal.Normalize();
+
+        if(NumberOfHitBeforeExplosion > 0)
+        {
+            Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+            rigidBody.AddForce(impactNormal * BounceForce);
+        }
+
+        GameObject go = (GameObject)Instantiate(Explosion, transform.position, Quaternion.LookRotation(impactNormal, Vector2.up));
         Destroy(go, 1.0f);
     }
 }

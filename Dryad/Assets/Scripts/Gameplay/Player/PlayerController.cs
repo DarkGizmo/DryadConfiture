@@ -100,11 +100,11 @@ public class PlayerController
                 {
                     isAiming = false;
 
-                    ballistic.GetComponent<BallisticAmmo>().Initialize(gameObject);
                     float launchForce = GetLaunchForce();
                     if (launchForce > 0.0f)
                     {
                         GameObject ballistic = (GameObject)GameObject.Instantiate(BallisticAmmo, transform.position, Quaternion.identity);
+                        ballistic.GetComponent<BallisticAmmo>().Initialize(gameObject);
                         Vector3 launchVelocity = GetLaunchVector().normalized * GetShootingRatio() * BallisticLaunchForce;
                         ballistic.GetComponent<Rigidbody2D>().AddForce(launchVelocity);
                     }
