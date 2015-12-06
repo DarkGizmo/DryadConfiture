@@ -31,13 +31,15 @@ public class CheatManager : MonoBehaviour
         }
         if(Input.GetKeyDown(KeyCode.Pause))
         {
-            if(TimeManager.GetTimeDilatation(TimeType.Gameplay) != 0.0f)
+            if(TimeManager.GetTimeDilatation(TimeType.Engine) != 0.0f)
             {
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 0.0f);
+                TimeManager.SetTimeDilatation(TimeType.Engine, 0.0f);
             }
             else
             {
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 1.0f);
+                TimeManager.SetTimeDilatation(TimeType.Engine, 1.0f);
             }
             timeDilatationUpdated = true;
         }
@@ -47,36 +49,43 @@ public class CheatManager : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.Alpha1))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, 0.25f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 0.25f);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha2))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, 0.5f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 0.5f);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha3))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, 1.0f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 1.0f);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha4))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, 2.0f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 2.0f);
             }
             else if(Input.GetKeyDown(KeyCode.Alpha5))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, 4.0f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, 4.0f);
             }
             else if(Input.GetKeyDown(KeyCode.PageUp))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, TimeManager.GetTimeDilatation(TimeType.Engine) * 2.0f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, TimeManager.GetTimeDilatation(TimeType.Gameplay) * 2.0f);
             }
             else if(Input.GetKeyDown(KeyCode.PageDown))
             {
                 timeDilatationUpdated = true;
+                TimeManager.SetTimeDilatation(TimeType.Engine, TimeManager.GetTimeDilatation(TimeType.Engine) * 0.5f);
                 TimeManager.SetTimeDilatation(TimeType.Gameplay, TimeManager.GetTimeDilatation(TimeType.Gameplay) * 0.5f);
             }
             else if(Input.GetKeyDown(KeyCode.R))
