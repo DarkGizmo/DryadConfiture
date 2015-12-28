@@ -132,14 +132,6 @@ Prefab:
       propertyPath: m_Name
       value: Avatar
       objectReference: {fileID: 0}
-    - target: {fileID: 5028998, guid: 58660b83b045046438ba25bd6abd647c, type: 2}
-      propertyPath: m_Constraints
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11427354, guid: 58660b83b045046438ba25bd6abd647c, type: 2}
-      propertyPath: maxHydro
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 58660b83b045046438ba25bd6abd647c, type: 2}
   m_IsPrefabParent: 0

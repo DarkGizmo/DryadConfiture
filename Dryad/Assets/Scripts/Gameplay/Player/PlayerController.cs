@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerController
     : MonoBehaviour
@@ -11,27 +12,63 @@ public class PlayerController
         ECurve,
         SCurve,
     }
-
+    
     public float force = 30.0f;
     public float flapIntensity = 5.0f;
-    public bool stateFree = true;
+    public bool mIsFloating = true;
     public float maxHorizVelocity = 12.0f;
-    private bool isAnchored = false;
+    public float MaxClimbAngle = 50.0f;
+    public float ClimbSlowdown = 15.0f;
+    public float SlopeSlowdownSpeed = 0.5f;
 
-    public GameObject BallisticAmmo;
-    public float BallisticLaunchForce = 1.0f;
-    public float BallisticFactor = 0.3f;
-    public EAimingSmoothType AimingSmoothType;
+    private void UpdateFree(ref Vector2 newVelocity)
+    {
+        if (Input.GetButtonDown("Anchor"))
+        {
+            newVelocity = new Vector2(newVelocity.x / 1.375f, -3.0f);
+            mIsFloating = !mIsFloating;
+            this.GetComponent<SpriteRenderer>().color = Color.white;
+            mIsAnchored = false;
+        }
 
-    public float MaximumLaunchLength = 10.0f;
-    public float MinimumLaunchLength = 1.0f;
-    public float MinimumLaunchForce = 1.0f;// still used?
+        if (mIsFloating)
+        {
+            if (Input.GetButtonDown("Jump"))
+            {
+                if (curHydro >= Mathf.Abs(hAdjFlap))
+                {
+                    newVelocity.y += flapIntensity;
+                    mGrounded = false;
+                    adjHydro(hAdjFlap);
+                }
+            }
+            if (curHydro >= Mathf.Abs(hAdjFree))
+            {
+                adjHydro(Mathf.Abs(Input.GetAxis("Horizontal")) * hAdjMove + hAdjFree);
 
-    public Material ArrowMaterial;
+                float inputForce = force * TimeHelper.GameTime * Input.GetAxis("Horizontal");
 
-    private bool isAiming;
-    private Vector3 originalAimingPosition;
-    private Vector3 currentAimingPosition;
+                if(mGrounded)
+                {
+                    float side = Mathf.Sign(mGroundNormal.x) * -Mathf.Sign(inputForce);
+
+                    float groundAngle = Mathf.Rad2Deg * Mathf.Acos(mGroundNormal.y) * side;
+
+                    float inputSlowdownRatio = MathUtility.MapClamped(groundAngle, MaxClimbAngle - ClimbSlowdown, MaxClimbAngle, 1.0f, 0.0f);
+
+                    inputForce *= inputSlowdownRatio;
+                }
+
+                newVelocity += GetRight() * inputForce;
+
+                if (mGrounded)
+                {
+                    newVelocity = newVelocity.normalized * Mathf.Clamp(newVelocity.magnitude, -maxHorizVelocity, maxHorizVelocity);
+                }
+            }
+        }
+    }
+
     // Hydrometer
     public float maxHydro = 30.0f;
     public float curHydro;
@@ -40,52 +77,61 @@ public class PlayerController
     public float hAdjMove = -0.1f;
     public float hAdjFlap = -3.0f;
     public float hAdjRefill = 0.3f;
-    // Use this for initialization
-    void Start ()
-    {
-        Camera.main.GetComponent<PostRendererEmitter>().RegisterPostRendererListener(this);
-        hBarLength = Screen.width / 2;
-        curHydro = maxHydro;
-	}
+    
+    // Grounded
+    bool mGrounded = false;
+    Vector2 mGroundNormal;
 
-    // Update is called once per frame
-    void Update()
+    private void UpdateGrounded()
     {
-        Vector2 myVelocity = GetComponent<Rigidbody2D>().velocity;
-        if (Input.GetButtonDown("Anchor"))
+        UpdateGroundNormal();
+
+        if(mIsFloating)
         {
-            myVelocity = new Vector2 (myVelocity.x/1.375f, -3.0f);
-            stateFree = !stateFree;
-            this.GetComponent<SpriteRenderer>().color = Color.white;
-            isAnchored = false;
-        }
-        if (stateFree)
-        {
-            if (Input.GetButtonDown("Jump"))
+            if(mGrounded)
             {
-                if (curHydro >= Mathf.Abs(hAdjFlap))
-                {
-                    myVelocity.y += flapIntensity;
-                    adjHydro(hAdjFlap);
-                }
+                this.GetComponent<SpriteRenderer>().color = ColorExtension.brown;
             }
-            if (curHydro >= Mathf.Abs(hAdjFree))
+            else
             {
-                adjHydro(Mathf.Abs(Input.GetAxis("Horizontal")) * hAdjMove + hAdjFree);
-                myVelocity.x = Mathf.Clamp(myVelocity.x + force * TimeHelper.GameTime * Input.GetAxis("Horizontal"), -maxHorizVelocity, maxHorizVelocity);
-            }
-        } else
-        {
-            if (!isAnchored && myVelocity == Vector2.zero)
-            {
-                isAnchored = true;
-                this.GetComponent<SpriteRenderer>().color = Color.red;
-                stateFree = false;
+                this.GetComponent<SpriteRenderer>().color = Color.blue;
             }
         }
-        GetComponent<Rigidbody2D>().velocity = myVelocity;
 
-        if (isAnchored)
+        if(mGrounded)
+        {
+            float angle = Mathf.Rad2Deg * (Mathf.Acos(mGroundNormal.y) * -Mathf.Sign(mGroundNormal.x));
+            transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
+
+            if(angle > MaxClimbAngle)
+            {
+                Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
+                GetComponent<Rigidbody2D>().velocity -= velocity.normalized * Mathf.Min(SlopeSlowdownSpeed * TimeHelper.GameTime, velocity.magnitude);
+            }
+        }
+        else
+        {
+            transform.rotation = Quaternion.identity;
+        }
+    }
+
+    // Anchored
+    public GameObject BallisticAmmo;
+    public float BallisticLaunchForce = 1.0f;
+    public float BallisticFactor = 0.3f;
+    public EAimingSmoothType AimingSmoothType;
+    public float MaximumLaunchLength = 10.0f;
+    public float MinimumLaunchLength = 1.0f;
+    public Material ArrowMaterial;
+
+    private bool mIsAnchored = false;
+    private bool isAiming;
+    private Vector3 originalAimingPosition;
+    private Vector3 currentAimingPosition;
+
+    private void UpdateAnchored()
+    {
+        if (mIsAnchored)
         {
             adjHydro(hAdjRefill);
             if (!isAiming && Input.GetButtonDown("Fire"))
@@ -115,6 +161,56 @@ public class PlayerController
                 }
             }
         }
+        else
+        {
+            if (!mIsFloating)
+            {
+                if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+                {
+                    mIsAnchored = true;
+                    this.GetComponent<SpriteRenderer>().color = Color.red;
+                    mIsFloating = false;
+                }
+            }
+        }
+    }
+
+    // Use this for initialization
+    void Start ()
+    {
+        Camera.main.GetComponent<PostRendererEmitter>().RegisterPostRendererListener(this);
+        hBarLength = Screen.width / 2;
+        curHydro = maxHydro;
+	}
+
+    // Update is called once per frame
+    void Update()
+    {
+        UpdateGrounded();
+
+        Vector2 newVelocity = GetComponent<Rigidbody2D>().velocity;
+
+        UpdateFree(ref newVelocity);
+        
+        GetComponent<Rigidbody2D>().velocity = newVelocity;
+
+        UpdateAnchored();
+    }
+
+    private Vector2 GetGroundNormal()
+    {
+        return mGroundNormal;
+    }
+
+    private Vector2 GetRight()
+    {
+        if (!VectorUtility.IsZero(mGroundNormal))
+        {
+            Vector3 cross = Vector3.Cross(VectorUtility.ToVector3(GetGroundNormal()), Vector3.forward);
+            return VectorUtility.ToVector2(cross);
+        }
+
+        return Vector2.right;
     }
 
     private Vector3 GetLaunchVector()
@@ -173,6 +269,59 @@ public class PlayerController
         return position;
     }
 
+    void UpdateGroundNormal()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        float halfWidth = collider.bounds.extents.x;
+        float halfHeight = collider.bounds.extents.y;
+
+        int layerMask = 1 << LayerMask.NameToLayer("Terrain");
+        float downCheckLength = 0.025f;
+        RaycastHit2D rightHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) + Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + downCheckLength, layerMask);
+        RaycastHit2D centerHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position), Vector2.down, halfHeight + downCheckLength, layerMask);
+        RaycastHit2D leftHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) - Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + downCheckLength, layerMask);
+
+        float input = Input.GetAxis("Horizontal");
+
+        int hitCount = 0;
+        Vector2 hitPoint = Vector2.zero;
+        mGrounded = false;
+        mGroundNormal = Vector2.zero;
+        if (rightHit.collider && input >= 0.0f)
+        {
+            ++hitCount;
+            hitPoint += rightHit.point;
+            mGroundNormal += rightHit.normal;
+        }
+        if (leftHit.collider && input <= 0.0f)
+        {
+            ++hitCount;
+            hitPoint += leftHit.point;
+            mGroundNormal += leftHit.normal;
+        }
+        if (centerHit.collider && ((input >= -0.3f && input < 0.3f) || VectorUtility.IsZero(mGroundNormal)))
+        {
+            ++hitCount;
+            hitPoint += centerHit.point;
+            mGroundNormal += centerHit.normal;
+        }
+
+        if (!VectorUtility.IsZero(mGroundNormal))
+        {
+            mGrounded = true;
+            mGroundNormal.Normalize();
+        }
+
+        if(mGrounded)
+        {
+            float newY = (hitPoint.y / (float)hitCount) + halfHeight;
+            if (newY < transform.position.y)
+            {
+                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+            }
+        }
+    }
+
     public float x, y;
 
     public Vector3 WorldToScreenPoint(Vector3 world)
@@ -209,7 +358,6 @@ public class PlayerController
             if (launchForce > 0.0f)
             {
                 Vector3 originalWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
-                Vector3 currentWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
                 Vector3 aimingWorldPosition = originalWorldAimingPosition + GetLaunchVector().normalized * GetShootingRatio() * MaximumLaunchLength;
 
                 LineUtility.DrawLine(originalAimingPosition, WorldToScreenPoint(aimingWorldPosition), ArrowMaterial);
@@ -231,7 +379,15 @@ public class PlayerController
             DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, Mathf.Min(GetLaunchForce(), MaximumLaunchLength));
             DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, MinimumLaunchLength);
             DebugExtension.DrawCircle(originalWorldAimingPosition, Vector3.forward, MaximumLaunchLength);
-        }        
+        }
+
+        if (mGrounded)
+        {
+            Gizmos.DrawLine(transform.position, transform.position + VectorUtility.ToVector3(GetGroundNormal() * 2.0f));
+            Gizmos.DrawLine(transform.position, transform.position + VectorUtility.ToVector3(GetRight() * 2.0f));
+        }
+
+        GizmosExtension.DrawDelayedGizmos();
     }
     public void adjHydro (float adj)
     {
@@ -241,4 +397,11 @@ public class PlayerController
     {
         GUI.HorizontalSlider(new Rect(new Vector2(hBarLength/2, Screen.height-20.0f), new Vector2 (hBarLength,1.0f)),curHydro,0.0f,maxHydro);
     }
+
+    #region Cheats
+    public void CheatRefillHydro()
+    {
+        curHydro = maxHydro;
+    }
+    #endregion
 }

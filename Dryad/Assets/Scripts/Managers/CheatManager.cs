@@ -94,6 +94,12 @@ public class CheatManager : MonoBehaviour
             }
         }
 
+        if(Input.GetKeyDown(KeyCode.Home))
+        {
+            PlayerController pc = GameObject.FindObjectOfType<PlayerController>();
+            pc.CheatRefillHydro();
+        }
+
         if(timeDilatationUpdated)
         {
             Debug.Log("Time Dilatation: " + TimeManager.GetTimeDilatation(TimeType.Gameplay));

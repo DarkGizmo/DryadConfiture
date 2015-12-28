@@ -26,4 +26,9 @@ class VectorUtility
     {
         return new Vector3(vector3.x, vector3.y, 0.0f);
     }
+
+    public static bool IsZero(Vector2 vector)
+    {
+        return Mathf.Approximately(vector.x, 0.0f) && Mathf.Approximately(vector.y, 0.0f);
+    }
 }
