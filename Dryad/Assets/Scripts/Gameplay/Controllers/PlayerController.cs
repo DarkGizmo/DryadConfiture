@@ -17,7 +17,6 @@ public class PlayerController
     public float flapIntensity = 5.0f;
     public bool mIsFloating = true;
     public float maxHorizVelocity = 12.0f;
-    public float MaxClimbAngle = 50.0f;
     public float SlopeSlowdownSpeed = 0.5f;
     public AnimationCurve SlopeSpeed;
 
@@ -102,12 +101,6 @@ public class PlayerController
         {
             float angle = Mathf.Rad2Deg * (Mathf.Acos(mGroundNormal.y) * -Mathf.Sign(mGroundNormal.x));
             transform.rotation = Quaternion.Euler(0.0f, 0.0f, angle);
-
-            if(angle > MaxClimbAngle)
-            {
-                Vector2 velocity = GetComponent<Rigidbody2D>().velocity;
-                GetComponent<Rigidbody2D>().velocity -= velocity.normalized * Mathf.Min(SlopeSlowdownSpeed * TimeHelper.GameTime, velocity.magnitude);
-            }
         }
         else
         {
