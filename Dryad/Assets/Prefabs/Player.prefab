@@ -12,6 +12,7 @@ GameObject:
   - 58: {fileID: 5891716}
   - 50: {fileID: 5028998}
   - 114: {fileID: 11427354}
+  - 114: {fileID: 11445340}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -76,8 +77,22 @@ MonoBehaviour:
   mIsFloating: 1
   maxHorizVelocity: 12
   MaxClimbAngle: 75
-  ClimbSlowdown: 15
   SlopeSlowdownSpeed: .5
+  SlopeSpeed:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 90
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
   maxHydro: 100
   curHydro: 0
   hAdjFree: -.00999999978
@@ -93,6 +108,43 @@ MonoBehaviour:
   ArrowMaterial: {fileID: 2100000, guid: e8f9560a3f1558b49b55ed165b51527a, type: 2}
   x: 5
   y: 5
+--- !u!114 &11445340
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 164478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd99e8b2198847544a871b17f939ff5a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  force: 30
+  flapIntensity: 5
+  mIsFloating: 1
+  maxHorizVelocity: 12
+  MaxClimbAngle: 50
+  SlopeSlowdownSpeed: .5
+  SlopeSpeed:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+  maxHydro: 30
+  curHydro: 0
+  hAdjFree: -.00999999978
+  hAdjMove: -.100000001
+  hAdjFlap: -3
+  hAdjRefill: .300000012
+  BallisticAmmo: {fileID: 0}
+  BallisticLaunchForce: 1
+  BallisticFactor: .300000012
+  AimingSmoothType: 0
+  MaximumLaunchLength: 10
+  MinimumLaunchLength: 1
+  ArrowMaterial: {fileID: 0}
+  x: 0
+  y: 0
 --- !u!212 &21220164
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -127,6 +179,10 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
@@ -137,6 +193,42 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[1].value
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[1].time
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[0].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[0].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[0].tangentMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[1].inSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[1].outSlope
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: SlopeSpeed.m_Curve.Array.data[1].tangentMode
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

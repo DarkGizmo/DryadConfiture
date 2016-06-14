@@ -18,8 +18,8 @@ public class PlayerController
     public bool mIsFloating = true;
     public float maxHorizVelocity = 12.0f;
     public float MaxClimbAngle = 50.0f;
-    public float ClimbSlowdown = 15.0f;
     public float SlopeSlowdownSpeed = 0.5f;
+    public AnimationCurve SlopeSpeed;
 
     private void UpdateFree(ref Vector2 newVelocity)
     {
@@ -54,9 +54,9 @@ public class PlayerController
 
                     float groundAngle = Mathf.Rad2Deg * Mathf.Acos(mGroundNormal.y) * side;
 
-                    float inputSlowdownRatio = MathUtility.MapClamped(groundAngle, MaxClimbAngle - ClimbSlowdown, MaxClimbAngle, 1.0f, 0.0f);
+                    float speedScalingRatio = SlopeSpeed.Evaluate(Mathf.Clamp(groundAngle, 0.0f, 90.0f));
 
-                    inputForce *= inputSlowdownRatio;
+                    inputForce *= speedScalingRatio;
                 }
 
                 newVelocity += GetRight() * inputForce;
@@ -175,13 +175,18 @@ public class PlayerController
         }
     }
 
+    public void Reset()
+    {
+        SlopeSpeed = new AnimationCurve(new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
+    }
+
     // Use this for initialization
     void Start ()
     {
         Camera.main.GetComponent<PostRendererEmitter>().RegisterPostRendererListener(this);
         hBarLength = Screen.width / 2;
         curHydro = maxHydro;
-	}
+    }
 
     // Update is called once per frame
     void Update()
