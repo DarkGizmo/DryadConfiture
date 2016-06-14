@@ -357,10 +357,10 @@ public class PlayerController
             float launchForce = GetLaunchForce();
             if (launchForce > 0.0f)
             {
-                Vector3 originalWorldAimingPosition = ScreenToWorldPoint(originalAimingPosition);
-                Vector3 aimingWorldPosition = originalWorldAimingPosition + GetLaunchVector().normalized * GetShootingRatio() * MaximumLaunchLength;
+                Vector3 originalWorldAimingPosition = WorldToScreenPoint(transform.position);
+                Vector3 aimingWorldPosition = transform.position + GetLaunchVector().normalized * GetShootingRatio() * MaximumLaunchLength;
 
-                LineUtility.DrawLine(originalAimingPosition, WorldToScreenPoint(aimingWorldPosition), ArrowMaterial);
+                LineUtility.DrawLine(originalWorldAimingPosition, WorldToScreenPoint(aimingWorldPosition), ArrowMaterial);
             }
         }
 
