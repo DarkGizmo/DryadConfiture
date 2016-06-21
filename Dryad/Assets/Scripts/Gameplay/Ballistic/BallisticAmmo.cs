@@ -11,6 +11,7 @@ public class BallisticAmmo : MonoBehaviour {
 
     public int NumberOfHitBeforeExplosion = 1;
     public float BounceForce = 200.0f;
+    public float DigFactor = 1.0f;
 
     public void Initialize(GameObject owner)
     {
@@ -75,11 +76,11 @@ public class BallisticAmmo : MonoBehaviour {
 
                     if(NumberOfHitBeforeExplosion == 0)
                     {
-                        path[i].y += Mathf.Max(deltaRemove, 0.0f);
+                        path[i].y -= Mathf.Max(deltaRemove, 0.0f) * DigFactor;
                     }
                     else
                     {
-                        path[i].y -= Mathf.Max(deltaRemove, 0.0f);
+                        path[i].y += Mathf.Max(deltaRemove, 0.0f) * -DigFactor;
                     }
                 }
             }

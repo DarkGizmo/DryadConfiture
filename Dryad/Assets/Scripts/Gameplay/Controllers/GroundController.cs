@@ -7,10 +7,19 @@ public abstract class GroundController : MonoBehaviour
     public AnimationCurve SlopeSpeed = new AnimationCurve(new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
     public float MaxHorizVelocity = 12.0f;
 
-    private bool mGrounded;
-    private Vector2 mGroundNormal;
+    protected bool mGrounded;
+    protected bool mUnderground;
+    protected Vector2 mGroundNormal;
+    protected Vector3 mGroundPosition;
 
     public abstract float GetVelocitySide();
+
+    private TerrainEditor2D mGroundTerrain;
+
+    public virtual void Start()
+    {
+        mGroundTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<TerrainEditor2D>();
+    }
 
     public bool IsGrounded()
     {
@@ -24,6 +33,7 @@ public abstract class GroundController : MonoBehaviour
 
     private void UpdateController()
     {
+        UpdateGroundPosition();
         UpdateGroundNormal();
 
         if (mGrounded)
@@ -38,7 +48,7 @@ public abstract class GroundController : MonoBehaviour
         SlopeSpeed = new AnimationCurve(new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
     }
 
-    void Update()
+    public virtual void Update()
     {
         UpdateController();
 
@@ -81,6 +91,30 @@ public abstract class GroundController : MonoBehaviour
         }
 
         return Vector2.right;
+    }
+
+    void UpdateGroundPosition()
+    {
+        if (mGroundTerrain == null)
+        {
+            mGroundTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<TerrainEditor2D>();
+        }
+
+        if (mGroundTerrain != null)
+        {
+            mGroundPosition = mGroundTerrain.GetGroundPosition(transform.position);
+        }
+
+        mUnderground = mGroundPosition.y > transform.position.y;
+
+        if (mUnderground)
+        {
+            GetComponent<Rigidbody2D>().constraints |= RigidbodyConstraints2D.FreezePositionY;
+        }
+        else
+        {
+            GetComponent<Rigidbody2D>().constraints &= ~RigidbodyConstraints2D.FreezePositionY;
+        }
     }
 
     void UpdateGroundNormal()
@@ -144,6 +178,7 @@ public abstract class GroundController : MonoBehaviour
             Gizmos.DrawLine(transform.position, transform.position + VectorUtility.ToVector3(GetRight() * 2.0f));
         }
 
-        GizmosExtension.DrawDelayedGizmos();
+
+        Gizmos.DrawWireSphere(mGroundPosition, 0.25f);
     }
 }

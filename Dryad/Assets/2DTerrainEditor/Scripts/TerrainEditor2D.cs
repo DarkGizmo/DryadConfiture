@@ -1220,6 +1220,76 @@ public class TerrainEditor2D : MonoBehaviour
         return newTerrain;
     }
 
+    public Vector3 GetGroundPosition(Vector3 refPosition)
+    {
+        Vector3 groundPosition = refPosition;
+        GetPositionOnGround(GetComponent<MeshFilter>().mesh.vertices, ref groundPosition);
+
+        return groundPosition;
+    }
+
+    private void GetPositionOnGround(Vector3[] vectors, ref Vector3 position)
+    {
+        int minIndex = 0;
+        int maxIndex = vectors.Length / 2 - 1;
+
+        while(minIndex < maxIndex)
+        {
+            int midIndex = (minIndex + maxIndex) / 2;
+            if(midIndex == minIndex || midIndex == maxIndex)
+            {
+                break;
+            }
+            Vector3 midPosition = transform.position + vectors[midIndex * 2];
+
+            if(midPosition.x < position.x)
+            {
+                minIndex = midIndex;
+            }
+            else if(midPosition.x > position.x)
+            {
+                maxIndex = midIndex;
+            }
+            else
+            {
+                minIndex = midIndex;
+                maxIndex = midIndex;
+            }
+        }
+
+        Vector3 dir = (vectors[maxIndex * 2] - vectors[minIndex * 2]);
+        float segmentLength = dir.magnitude;
+        float rightProjRatio = 0.0f;
+        if (!MathUtility.IsEqualWithEpsilon(segmentLength, 0.0f))
+        {
+            dir /= segmentLength;
+            rightProjRatio = 1.0f / Vector3.Dot(dir, Vector3.right);
+        }
+        else
+        {
+            dir = Vector3.zero;
+        }
+
+        Vector3 projVec = Mathf.Clamp(Vector3.Dot(position - (transform.position + vectors[minIndex * 2]), Vector3.right) * rightProjRatio, 0.0f, segmentLength) * dir;
+        position = transform.position + vectors[minIndex * 2] + projVec;
+    }
+
+    public void OnDrawGizmos()
+    {
+        /*
+        Mesh mesh = GetComponent<MeshFilter>().sharedMesh;
+        for (int i = 0; i < mesh.vertices.Length; i+=2)
+        {
+            Gizmos.DrawWireSphere(transform.position + mesh.vertices[i], 0.1f);
+        }
+        */
+
+        //for (int i = 0; i < mesh.normals.Length; ++i)
+        {
+            //Gizmos.DrawLine(transform.position + mesh.vertices[i], transform.position + mesh.vertices[i] + mesh.normals[i] * 0.5f);
+        }
+    }
+
 
     // --- internal classes
 
