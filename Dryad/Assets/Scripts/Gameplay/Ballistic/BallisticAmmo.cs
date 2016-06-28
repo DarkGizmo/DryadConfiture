@@ -28,6 +28,59 @@ public class BallisticAmmo : MonoBehaviour {
 	
 	}
 
+    private void ModifyTerrain(TerrainEditor2D terrain, Vector3 location, float radius, float digFactor)
+    {
+        Vector3 hitLocation = location - terrain.transform.position;
+
+        //Get array of points of terrain path in local space
+        Vector3[] path = terrain.GetPath(Space.Self, true);
+
+        float minX = hitLocation.x - radius;
+        float maxX = hitLocation.x + radius;
+
+        for (int i = 0; i < path.Length; i++)
+        {
+            if (path[i].x >= minX && path[i].x <= maxX)
+            {
+                float distX = Mathf.Abs(hitLocation.x - path[i].x);
+                float ratioX = distX / radius;
+
+                float height = Mathf.Sin((ratioX * 0.5f + 0.5f) * Mathf.PI) * radius;
+
+                float deltaDig = Mathf.Max((hitLocation.y + height) - path[i].y, 0.0f);
+                float deltaRemove = height * 2.0f - deltaDig;
+
+                float deltaMove = 0.0f;
+                if (NumberOfHitBeforeExplosion == 0)
+                {
+                    deltaMove = -Mathf.Max(deltaRemove, 0.0f) * digFactor;
+                }
+                else
+                {
+                    deltaMove = Mathf.Max(deltaRemove, 0.0f) * digFactor;
+                }
+
+                // clamp if already higher then what we were gonna add
+                if(deltaMove > 0.0f)
+                {
+                    if(path[i].y - hitLocation.y > deltaMove)
+                    {
+                        deltaMove = 0.0f;
+                    }
+                    else
+                    {
+                        deltaMove = Mathf.Min(deltaMove, Mathf.Max(path[i].y - hitLocation.y, 0.0f));
+                    }
+                }
+
+                path[i].y += deltaMove;
+            }
+        }
+
+        //Apply deformation
+        terrain.ApplyDeform(path, true);
+    }
+
     virtual public void OnImpact()
     {
         float explosionRadius = ExplosionRadius;
@@ -54,39 +107,9 @@ public class BallisticAmmo : MonoBehaviour {
                 continue;
             }
 
-            Vector3 hitLocation = transform.position - terrainEditor2D.transform.position;
-
-            //Get array of points of terrain path in local space
-            Vector3[] path = terrainEditor2D.GetPath(Space.Self);
-
-            float minX = hitLocation.x - explosionRadius;
-            float maxX = hitLocation.x + explosionRadius;
-
-            for (int i = 0; i < path.Length; i++)
-            {
-                if (path[i].x >= minX && path[i].x <= maxX)
-                {
-                    float distX = Mathf.Abs(hitLocation.x - path[i].x);
-                    float ratioX = distX / explosionRadius;
-
-                    float height = Mathf.Sin((ratioX * 0.5f + 0.5f) * Mathf.PI) * explosionRadius;
-
-                    float deltaDig = Mathf.Max((hitLocation.y + height) - path[i].y, 0.0f);
-                    float deltaRemove = height * 2.0f - deltaDig;
-
-                    if(NumberOfHitBeforeExplosion == 0)
-                    {
-                        path[i].y -= Mathf.Max(deltaRemove, 0.0f) * DigFactor;
-                    }
-                    else
-                    {
-                        path[i].y += Mathf.Max(deltaRemove, 0.0f) * -DigFactor;
-                    }
-                }
-            }
-
-            //Apply deformation
-            terrainEditor2D.ApplyDeform(path, true);
+            ModifyTerrain(terrainEditor2D, transform.position, explosionRadius, DigFactor);
+            ModifyTerrain(terrainEditor2D, transform.position - Vector3.right * explosionRadius * 1.5f, explosionRadius * 0.5f, -DigFactor * 0.5f);
+            ModifyTerrain(terrainEditor2D, transform.position + Vector3.right * explosionRadius * 1.5f, explosionRadius * 0.5f, -DigFactor * 0.5f);
         }
     }
 
