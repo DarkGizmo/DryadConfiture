@@ -15,18 +15,46 @@ public class PlayerController
     
     [Header("Player")]
     public float InputForce = 10.0f;
+    public float FlightInputForce = 1.0f;
+    public float MaxFlightHorizVelocity = 20.0f;
     public float flapIntensity = 5.0f;
+    public float AnchoredStopDampingRatio = 0.9f;
+
+    public PhysicsMaterial2D FloatingMaterial;
+    public PhysicsMaterial2D AnchoredMaterial;
+
     private bool mIsFloating = true;
+    private bool mIsAnchored = false;
+
+    private void SetIsFloating(bool isFloating)
+    {
+        if (mIsFloating != isFloating)
+        {
+            mIsFloating = isFloating;
+            Collider2D collider = GetComponent<Collider2D>();
+            collider.sharedMaterial = mIsFloating ? FloatingMaterial : AnchoredMaterial;
+            collider.enabled = false;
+            collider.enabled = true;
+        }
+    }
+
+    private void SetIsAnchored(bool isAnchored)
+    {
+        if (mIsAnchored != isAnchored)
+        {
+            mIsAnchored = isAnchored;
+        }
+    }
 
     public override float GetVelocitySide()
     {
-        if (!mIsAnchored && IsGrounded())
+        if (mIsFloating)
         {
-            float inputForce = InputForce * Input.GetAxis("Horizontal");
+            float inputForce = (IsGrounded() ? InputForce : FlightInputForce) * Input.GetAxis("Horizontal");
 
-            float side = Mathf.Sign(mGroundNormal.x) * -Mathf.Sign(inputForce);
+            float side = Mathf.Sign(inputForce);
 
-            float groundAngle = Mathf.Rad2Deg * Mathf.Acos(mGroundNormal.y) * side;
+            float groundAngle = IsGrounded() ? (Mathf.Rad2Deg * Mathf.Acos(mGroundNormal.y) * side) : 0.0f;
 
             float speedScalingRatio = SlopeSpeed.Evaluate(Mathf.Clamp(groundAngle, 0.0f, 90.0f));
 
@@ -41,14 +69,14 @@ public class PlayerController
         if (!mUnderground && Input.GetButtonDown("Anchor"))
         {
             newVelocity = new Vector2(newVelocity.x / 1.375f, -3.0f);
-            mIsFloating = !mIsFloating;
+            SetIsFloating(!mIsFloating);
             this.GetComponent<SpriteRenderer>().color = Color.white;
-            mIsAnchored = false;
+            SetIsAnchored(false);
         }
 
         if(mUnderground)
         {
-            mIsFloating = false;
+            SetIsFloating(false);
         }
 
         if (mIsFloating)
@@ -61,13 +89,6 @@ public class PlayerController
                     SetIsGrounded(false);
                     adjHydro(hAdjFlap);
                 }
-            }
-            if (curHydro >= Mathf.Abs(hAdjFree))
-            {
-                adjHydro(Mathf.Abs(Input.GetAxis("Horizontal")) * hAdjMove + hAdjFree);
-
-                float inputForce = InputForce * TimeHelper.GameTime * Input.GetAxis("Horizontal");
-                newVelocity += GetRight() * inputForce;
             }
         }
     }
@@ -112,7 +133,6 @@ public class PlayerController
     public float MinimumLaunchLength = 1.0f;
     public Material ArrowMaterial;
 
-    private bool mIsAnchored = false;
     private bool isAiming;
     private Vector3 originalAimingPosition;
     private Vector3 currentAimingPosition;
@@ -121,7 +141,20 @@ public class PlayerController
     {
         if(mUnderground)
         {
-            mIsAnchored = true;
+            SetIsAnchored(mIsAnchored);
+        }
+
+        // Slow down to anchor
+        if (!mIsFloating && !mIsAnchored)
+        {
+            Vector3 velocity = GetComponent<Rigidbody2D>().velocity;
+            if (!IsGrounded())
+            {
+                velocity.y += -1.0f;
+            }
+            velocity.x = DampingUtility.Damp(velocity.x, 0.0f, AnchoredStopDampingRatio, TimeHelper.GameTime);
+
+            GetComponent<Rigidbody2D>().velocity = velocity;
         }
 
         if (mIsAnchored)
@@ -158,10 +191,9 @@ public class PlayerController
         {
             if (!mIsFloating)
             {
-                if (GetComponent<Rigidbody2D>().velocity == Vector2.zero)
+                if (GetComponent<Rigidbody2D>().velocity.sqrMagnitude <= 0.1f)
                 {
-                    mIsAnchored = true;
-                    mIsFloating = false;
+                    SetIsAnchored(true);
                 }
             }
         }
@@ -189,6 +221,10 @@ public class PlayerController
         UpdateFree(ref newVelocity);
         if (mIsFloating)
         {
+            float y = newVelocity.y;
+            newVelocity = newVelocity.normalized * Mathf.Clamp(newVelocity.magnitude, -MaxFlightHorizVelocity, MaxFlightHorizVelocity);
+            newVelocity.y = y;
+
             GetComponent<Rigidbody2D>().velocity = newVelocity;
         }
 

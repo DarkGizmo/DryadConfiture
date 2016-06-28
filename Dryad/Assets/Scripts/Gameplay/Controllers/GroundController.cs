@@ -31,10 +31,10 @@ public abstract class GroundController : MonoBehaviour
         mGrounded = value;
     }
 
-    private void UpdateController()
+    private void UpdateController(float inputForce)
     {
         UpdateGroundPosition();
-        UpdateGroundNormal();
+        UpdateGroundNormal(inputForce);
 
         if (mGrounded)
         {
@@ -50,11 +50,11 @@ public abstract class GroundController : MonoBehaviour
 
     public virtual void Update()
     {
-        UpdateController();
+        float inputForce = GetVelocitySide();
+
+        UpdateController(inputForce);
 
         Vector2 newVelocity = GetComponent<Rigidbody2D>().velocity;
-
-        float inputForce = GetVelocitySide();
 
         if (mGrounded)
         {
@@ -117,7 +117,7 @@ public abstract class GroundController : MonoBehaviour
         }
     }
 
-    void UpdateGroundNormal()
+    void UpdateGroundNormal(float inputForce)
     {
         Collider2D collider = GetComponent<Collider2D>();
         float halfWidth = collider.bounds.extents.x;
@@ -129,7 +129,7 @@ public abstract class GroundController : MonoBehaviour
         RaycastHit2D centerHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position), Vector2.down, halfHeight + downCheckLength, layerMask);
         RaycastHit2D leftHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) - Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + downCheckLength, layerMask);
 
-        float input = Input.GetAxis("Horizontal");
+        float input = inputForce;
 
         int hitCount = 0;
         Vector2 hitPoint = Vector2.zero;
