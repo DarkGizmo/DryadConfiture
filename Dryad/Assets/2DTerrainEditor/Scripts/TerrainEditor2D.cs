@@ -160,6 +160,15 @@ public class TerrainEditor2D : MonoBehaviour
 
 
     // --- public methods
+    public void Awake()
+    {
+        GameplayObjectManager.Instance.RegisterBehaviour(this);
+    }
+
+    void OnDestroy()
+    {
+        GameplayObjectManager.Instance.UnregisterBehaviour(this);
+    }
 
     /// <summary>
     /// Generates new flat terrain based on main values

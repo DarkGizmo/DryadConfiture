@@ -8,6 +8,7 @@ public class BallisticAmmo : MonoBehaviour {
     private GameObject mOwner;
     public GameObject Explosion;
     public float ExplosionRadius = 4.0f;
+    public float Damage = 100.0f;
 
     public int NumberOfHitBeforeExplosion = 1;
     public float BounceForce = 200.0f;
@@ -98,9 +99,9 @@ public class BallisticAmmo : MonoBehaviour {
 
         GameObject[] allTerrains = GameObject.FindGameObjectsWithTag("Terrain");
 
-        foreach (var terrainEditor2DObject in allTerrains)
+        for(int i = 0; i < GameplayObjectManager.Instance.TerrainList.Count; ++i)
         {
-            TerrainEditor2D terrainEditor2D = terrainEditor2DObject.GetComponent<TerrainEditor2D>();
+            TerrainEditor2D terrainEditor2D = GameplayObjectManager.Instance.TerrainList[i];
 
             if(terrainEditor2D == null)
             {
@@ -110,6 +111,26 @@ public class BallisticAmmo : MonoBehaviour {
             ModifyTerrain(terrainEditor2D, transform.position, explosionRadius, DigFactor);
             ModifyTerrain(terrainEditor2D, transform.position - Vector3.right * explosionRadius * 1.5f, explosionRadius * 0.5f, -DigFactor * 0.5f);
             ModifyTerrain(terrainEditor2D, transform.position + Vector3.right * explosionRadius * 1.5f, explosionRadius * 0.5f, -DigFactor * 0.5f);
+        }
+
+        for (int i = 0; i < GameplayObjectManager.Instance.HealthComponentList.Count; ++i)
+        {
+            HealthComponent healtComponent = GameplayObjectManager.Instance.HealthComponentList[i];
+
+            if (healtComponent == null)
+            {
+                continue;
+            }
+
+            CircleCollider2D circleCollider = healtComponent.gameObject.GetComponent<CircleCollider2D>();
+            if(circleCollider != null)
+            {
+                Vector3 toCircleCollider = (healtComponent.transform.position - transform.position).normalized;
+                if (circleCollider.OverlapPoint(transform.position + toCircleCollider * explosionRadius))
+                {
+                    healtComponent.Damage(Damage * (explosionRadius / ExplosionRadius));
+                }
+            }
         }
     }
 
@@ -133,5 +154,10 @@ public class BallisticAmmo : MonoBehaviour {
 
         GameObject go = (GameObject)Instantiate(Explosion, transform.position, Quaternion.LookRotation(impactNormal, Vector2.up));
         Destroy(go, 1.0f);
+    }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, ExplosionRadius);
     }
 }

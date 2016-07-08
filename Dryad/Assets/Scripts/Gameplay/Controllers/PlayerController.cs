@@ -97,8 +97,6 @@ public class PlayerController
     public float maxHydro = 30.0f;
     private float curHydro;
     private float hBarLength;
-    private float hAdjFree = -0.01f;
-    private float hAdjMove = -0.1f;
     private float hAdjFlap = -3.0f;
     private float hAdjRefill = 0.3f;
     

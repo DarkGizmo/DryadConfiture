@@ -45,7 +45,7 @@ Rigidbody2D:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 0
 --- !u!58 &5885794
 CircleCollider2D:
@@ -75,7 +75,7 @@ MonoBehaviour:
   ExplosionRadius: 2
   NumberOfHitBeforeExplosion: 1
   BounceForce: 500
-  DigFactor: 3
+  DigFactor: 1
 --- !u!212 &21258888
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -131,7 +131,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: DigFactor
-      value: 3
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_CollisionDetection
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
