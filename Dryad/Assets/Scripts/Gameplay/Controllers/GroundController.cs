@@ -2,10 +2,12 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public abstract class GroundController : MonoBehaviour
+public abstract class GroundController : Controller
 {
     public AnimationCurve SlopeSpeed = new AnimationCurve(new Keyframe(0.0f, 1.0f), new Keyframe(90.0f, 0.0f));
     public float MaxHorizVelocity = 12.0f;
+
+    public float GroundCheckHeight = 0.025f;
 
     protected bool mGrounded;
     protected bool mUnderground;
@@ -19,6 +21,15 @@ public abstract class GroundController : MonoBehaviour
     public virtual void Start()
     {
         mGroundTerrain = GameObject.FindGameObjectWithTag("Terrain").GetComponent<TerrainEditor2D>();
+    }
+
+    public override void OnActivated()
+    {
+        UpdateGroundNormal(0.0f);
+    }
+
+    public override void OnDeactivated()
+    {
     }
 
     public bool IsGrounded()
@@ -124,10 +135,9 @@ public abstract class GroundController : MonoBehaviour
         float halfHeight = collider.bounds.extents.y;
 
         int layerMask = 1 << LayerMask.NameToLayer("Terrain");
-        float downCheckLength = 0.025f;
-        RaycastHit2D rightHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) + Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + downCheckLength, layerMask);
-        RaycastHit2D centerHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position), Vector2.down, halfHeight + downCheckLength, layerMask);
-        RaycastHit2D leftHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) - Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + downCheckLength, layerMask);
+        RaycastHit2D rightHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) + Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + GroundCheckHeight, layerMask);
+        RaycastHit2D centerHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position), Vector2.down, halfHeight + GroundCheckHeight, layerMask);
+        RaycastHit2D leftHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) - Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + GroundCheckHeight, layerMask);
 
         float input = inputForce;
 
@@ -147,8 +157,23 @@ public abstract class GroundController : MonoBehaviour
             hitPoint += leftHit.point;
             mGroundNormal += leftHit.normal;
         }
-        if (centerHit.collider && ((input >= -0.3f && input < 0.3f) || VectorUtility.IsZero(mGroundNormal)))
+        if (centerHit.collider && ((input >= -0.3f && input < 0.3f) || VectorUtility.IsZero(mGroundNormal) || hitCount == 0))
         {
+            if(hitCount == 0)
+            {
+                if (rightHit.collider)
+                {
+                    ++hitCount;
+                    hitPoint += rightHit.point;
+                    mGroundNormal += rightHit.normal;
+                }
+                if (leftHit.collider)
+                {
+                    ++hitCount;
+                    hitPoint += leftHit.point;
+                    mGroundNormal += leftHit.normal;
+                }
+            }
             ++hitCount;
             hitPoint += centerHit.point;
             mGroundNormal += centerHit.normal;
@@ -165,7 +190,9 @@ public abstract class GroundController : MonoBehaviour
             float newY = (hitPoint.y / (float)hitCount) + halfHeight;
             if (newY < transform.position.y)
             {
-                transform.position = new Vector3(transform.position.x, newY, transform.position.z);
+                Vector3 groundPos = mGroundTerrain.GetGroundPosition(transform.position);
+                groundPos.y = groundPos.y + halfHeight;
+                transform.position = groundPos;
             }
         }
     }
@@ -180,5 +207,18 @@ public abstract class GroundController : MonoBehaviour
 
 
         Gizmos.DrawWireSphere(mGroundPosition, 0.25f);
+    }
+
+    public void OnDrawGizmosSelected()
+    {
+        Collider2D collider = GetComponent<Collider2D>();
+        float halfWidth = collider.bounds.extents.x;
+        float halfHeight = collider.bounds.extents.y;
+
+        int layerMask = 1 << LayerMask.NameToLayer("Terrain");
+
+        RaycastHit2D rightHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) + Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + GroundCheckHeight, layerMask);
+        RaycastHit2D centerHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position), Vector2.down, halfHeight + GroundCheckHeight, layerMask);
+        RaycastHit2D leftHit = PhysicsHelper.Physics2DRaycast(VectorUtility.ToVector2(transform.position) - Vector2.right * halfWidth + Vector2.up * halfHeight, Vector2.down, halfHeight * 2.0f + GroundCheckHeight, layerMask);
     }
 }
